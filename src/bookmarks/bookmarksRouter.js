@@ -14,15 +14,12 @@ route.get('/', (req, res, next) => {
 }); 
 
 function validateId(id){
-  if(typeof id !== 'number') {
-    return false;
-  } else {
-    return true;
-  }
+  return !isNaN(id);
 }
 
 route.get('/:id', (req, res, next) => {
   const id = Number(req.params.id);
+  console.log(id);
   if(validateId(id)){
     bookmarksService.getById(req.app.get('db'), id)
       .then(bookmark => {

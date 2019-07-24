@@ -6,7 +6,6 @@ const knex = require('knex');
 
 describe('handles GET correctly',()=>{
  
-
   it('resonse with a 200 code',()=>{
     return request(app).get('/').expect(200);
   });
@@ -23,7 +22,6 @@ describe('handles GET correctly',()=>{
       .expect(200)
       .expect((res)=>{
         expect(res.body[0]).is.an('object');
-        // expect(res.body[0].id).to.have.property;
       });
   });
   it('returns a 400 if given invalid id',()=>{
