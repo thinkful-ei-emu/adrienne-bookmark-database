@@ -5,5 +5,5 @@ module.exports = {
   'driver': 'pg',
   'username': process.env.MIGRATION_DB_USER,
   'password': process.env.MIGRATION_DB_PASS,
-  'database': process.env.MIGRATION_DB_NAME
+  'database': process.env.NODE_ENV === 'production' ? process.env.MIGRATION_DB_NAME : process.env.MIGRATION_DB_NAME_TEST
 };
