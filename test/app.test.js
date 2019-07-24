@@ -23,12 +23,12 @@ describe('handles GET correctly',()=>{
       .expect(200)
       .expect((res)=>{
         expect(res.body[0]).is.an('object');
-        expect(res.body[0]).to.have.properity
+        // expect(res.body[0].id).to.have.property;
       });
   });
-  it('returns a 404 if given invalid id',()=>{
+  it('returns a 400 if given invalid id',()=>{
     return request(app).get('/bookmarks/asdasd')
-      .expect(404)
+      .expect(400)
       .expect({error:'invalid id'});
   });
 });

@@ -3,7 +3,7 @@ const bookmarksService = {
     return db.select('*').from('bookmarks');
   },
   getById(db, id) {
-    return db.select('*').from('bookmarks').where({id}).first();
+    return db.select('*').from('bookmarks').where({id});
   }
 };
 

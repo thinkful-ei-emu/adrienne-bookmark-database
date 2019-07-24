@@ -13,13 +13,27 @@ route.get('/', (req, res, next) => {
     });
 }); 
 
+function validateId(id){
+  if(typeof id !== 'number') {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 route.get('/:id', (req, res, next) => {
-  bookmarksService.getById(req.app.get('db'), req.params.id)
-    .then(bookmark => {
-      res.status(200);
-      res.json(bookmark);
-    })
-    .catch(next);
+  const id = Number(req.params.id);
+  if(validateId(id)){
+    bookmarksService.getById(req.app.get('db'), id)
+      .then(bookmark => {
+        res.status(200);
+        res.json(bookmark);
+      })
+      .catch(next);
+  } else {
+    res.status(400);
+    res.json({error:'invalid id'});
+  }
 });
 
 module.exports = route;
