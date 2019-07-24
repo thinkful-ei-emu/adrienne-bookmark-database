@@ -9,6 +9,21 @@ const {NODE_ENV} = require('./config');
 const morganOptions = 'common';
 
 app.use(helmet());
+
+app.use(cors());
+app.use(morgan(morganOptions));
+app.get('/',(req,res)=>{
+  res.status(200).send('Hello World');
+});
+
+app.get('/bookmarks', (req, res) => {
+
+});
+
+app.get('/bookmarks/:bookmark_id', (req, res) => {
+
+});
+
 app.use((err, req, res, next)=>{
   let response;
   if(NODE_ENV === 'production'){
@@ -19,10 +34,4 @@ app.use((err, req, res, next)=>{
   }
   res.status(500).json(response);
 });
-app.use(cors());
-app.use(morgan(morganOptions));
-app.get('/',(req,res)=>{
-  res.status(200).send('Hello World');
-});
-
 module.exports = app;
