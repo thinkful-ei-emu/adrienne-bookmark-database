@@ -1,7 +1,8 @@
 const app = require('../src/app');
 //supertest is global variable called request
 const testData = require('./bookmarks.fixture')();
-const knex = require('knex');
+/* const knex = require('knex');
+const bkService = require('../src/service/bookmarks_service'); */
 
 
 describe('handles GET correctly',()=>{
@@ -28,6 +29,10 @@ describe('handles GET correctly',()=>{
     return request(app).get('/bookmarks/asdasd')
       .expect(400)
       .expect({error:'invalid id'});
+  });
+  it('returns 404 if id is not in DB',()=>{
+    return request(app).get('/bookmarks/402111')
+      .expect(404);
   });
 });
 

@@ -23,8 +23,13 @@ route.get('/:id', (req, res, next) => {
   if(validateId(id)){
     bookmarksService.getById(req.app.get('db'), id)
       .then(bookmark => {
-        res.status(200);
-        res.json(bookmark);
+        console.log('this is the resp from db:',bookmark);
+        if(bookmark.length >= 1 ){
+          res.status(200);
+          res.json(bookmark);
+        }else{
+          res.status(404).json({error:'book not found'});
+        }
       })
       .catch(next);
   } else {
