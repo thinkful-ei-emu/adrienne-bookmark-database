@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
+const knex = require('knex');
+const bookmarksRoute = require('./bookmarks/bookmarksRouter');
 
 const {NODE_ENV} = require('./config');
 
@@ -16,13 +18,14 @@ app.get('/',(req,res)=>{
   res.status(200).send('Hello World');
 });
 
-app.get('/bookmarks', (req, res) => {
-
+const db = knex({
+  client: 'pg',
+  connection: process.env.DB_URL,
 });
 
-app.get('/bookmarks/:bookmark_id', (req, res) => {
+app.set('db', db);
 
-});
+app.use('/bookmarks', bookmarksRoute);
 
 app.use((err, req, res, next)=>{
   let response;
