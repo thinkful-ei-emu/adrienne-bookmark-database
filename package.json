@@ -1,5 +1,5 @@
 {
-  "name": "express-boilerplate",
+  "name": "bookmarks-server-database",
   "version": "1.0.0",
   "description": "a template for express servers",
   "main": "src/server.js",
@@ -32,7 +32,10 @@
     "helmet": "^3.19.0",
     "knex": "^0.19.1",
     "morgan": "^1.9.1",
-    "pg": "^7.11.0"
+    "pg": "^7.11.0",
+    "valid-url": "^1.0.9",
+    "winston": "^3.2.1",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
