@@ -11,6 +11,7 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "migrate": "postgrator --config postgrator_config.js",
+    "migrate-production": "postgrator --config postgrator_production_config.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master"
   },

@@ -1,4 +1,5 @@
 const bookmarksService = require('../service/bookmarks_service');
+const path = require('path');
 const express = require('express');
 const jsonParser = express.json();
 const logger = require('../logger');
@@ -50,7 +51,7 @@ bookmarksRouter
         logger.info(`Card with id ${bookmark.id} created`);
         res
           .status(201)
-          .location(`/bookmarks/${bookmark.id}`)
+          .location(path.posix.join(req.originalUrl + `/${bookmark.id}`))
           .json(serializeBookmark(bookmark));
       })
       .catch(next);
@@ -92,6 +93,25 @@ bookmarksRouter
     )
       .then(numRowsAffected => {
         logger.info(`Card with id '${id} deleted`);
+        res.status(204).end();
+      })
+      .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const { title, url, description, rating } = req.body;
+    const bookmarkToUpdate = { title, url, description, rating };
+
+    const numberOfValues = Object.values(bookmarkToUpdate).filter(Boolean).length;
+    if(numberOfValues === 0) {
+      return res.status(400).json({ error: { Message: 'Request body must contain either "title", "url", "description" or "rating"' }});
+    }
+
+    bookmarksService.updateBookmark(
+      req.app.get('db'),
+      req.params.bookmark_id,
+      bookmarkToUpdate
+    )
+      .then(numRowsAffected => {
         res.status(204).end();
       })
       .catch(next);

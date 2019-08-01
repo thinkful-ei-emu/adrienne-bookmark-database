@@ -18,7 +18,6 @@ app.use((err, req, res, next)=>{
   let response;
   console.error(err);
   if(NODE_ENV === 'production'){
-
     response = {error:{message:'Critical Server Error'}};
   }else{
     response = {error:{message:err.message,err}};
